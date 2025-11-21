@@ -16,7 +16,7 @@ const std::unordered_map<std::string, TokenType> TABLE = {
     {"CLEAR", TokenType::CLEAR}, {"QUIT", TokenType::QUIT},
     {"HELP", TokenType::HELP}};
 
-bool isOverflow(const std::string& digits, bool negative) {
+bool isOverflow(const std::string& digits, bool negative) {//判断是否溢出
   constexpr long long max_limit = std::numeric_limits<int>::max();
   return negative ? std::stol(digits) > max_limit
                   : std::stol(digits) > max_limit + 1;
