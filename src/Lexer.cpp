@@ -7,7 +7,7 @@
 
 #include "utils/Error.hpp"
 
-const std::unordered_map<std::string, TokenType> TABLE = {
+const std::unordered_map<std::string, TokenType> TABLE = {//把字符串转为TokenType
     {"LET", TokenType::LET},     {"PRINT", TokenType::PRINT},
     {"INPUT", TokenType::INPUT}, {"END", TokenType::END},
     {"REM", TokenType::REM},     {"GOTO", TokenType::GOTO},
@@ -27,18 +27,18 @@ TokenStream Lexer::tokenize(const std::string& line) const {
   int column = 0;
   while (column < line.size()) {
     char ch = line[column];
-    if (std::isspace(static_cast<int>(ch))) {
+    if (std::isspace(static_cast<int>(ch))) {//判断是否为空白字符
       ++column;
       continue;
     }
 
-    if (isLetterChar(ch)) {
+    if (isLetterChar(ch)) {//判断是否为字符
       int start = column;
       ++column;
       while (column < line.size() && isLetterChar(line[column])) {
         ++column;
       }
-      std::string text = line.substr(start, column - start);
+      std::string text = line.substr(start, column - start);//读取一个词
       TokenType type = matchKeyword(text);
       switch (type) {
         case TokenType::REM:
@@ -57,7 +57,7 @@ TokenStream Lexer::tokenize(const std::string& line) const {
       continue;
     }
 
-    if (isNumberChar(ch)) {
+    if (isNumberChar(ch)) {//判断是否为数字并搞到tokens中
       int start = column;
       while (column < line.size() && isNumberChar(line[column])) {
         ++column;

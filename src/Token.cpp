@@ -1,6 +1,6 @@
 #include "Token.hpp"
 
-TokenStream::TokenStream(std::vector<Token>&& tokens)
+TokenStream::TokenStream(std::vector<Token>&& tokens)//构造函数
     : tokens_(std::move(tokens)), cursor_(0) {}
 
 const Token* TokenStream::peek() const {
@@ -26,6 +26,6 @@ int TokenStream::position() const { return cursor_; }
 
 int TokenStream::size() const { return tokens_.size(); }
 
-void TokenStream::push(Token&& token) { tokens_.push_back(std::move(token)); }
+void TokenStream::push(Token&& token) { tokens_.push_back(std::move(token)); }//插入
 
-const std::vector<Token>& TokenStream::data() const { return tokens_; }
+const std::vector<Token>& TokenStream::data() const { return tokens_; }//取出整个

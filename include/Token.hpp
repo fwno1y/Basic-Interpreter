@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-enum class TokenType {
+enum class TokenType {//枚举类
   // Keywords
   LET,
   PRINT,
@@ -37,7 +37,7 @@ enum class TokenType {
   UNKNOWN
 };
 
-struct Token {
+struct Token {//类型、内容
   TokenType type{TokenType::UNKNOWN};
   std::string text{};
   int column{0};
@@ -60,6 +60,6 @@ class TokenStream {
   const std::vector<Token>& data() const;
 
  private:
-  std::vector<Token> tokens_{};
-  int cursor_{0};
+  std::vector<Token> tokens_{};//存储tokens
+  int cursor_{0};//光标
 };
