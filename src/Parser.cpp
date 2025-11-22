@@ -28,7 +28,7 @@ Statement* ParsedLine::fetchStatement() {
 }
 
 ParsedLine Parser::parseLine(TokenStream& tokens,
-                             const std::string& originLine) const {
+                             const std::string& originLine) const {//tokens是分块解析，originLine是原始
   ParsedLine result;
 
   // 检查是否有行号
@@ -51,7 +51,7 @@ ParsedLine Parser::parseLine(TokenStream& tokens,
 }
 
 Statement* Parser::parseStatement(TokenStream& tokens,
-                                  const std::string& originLine) const {
+                                  const std::string& originLine) const {//中转站
   if (tokens.empty()) {
     throw BasicError("SYNTAX ERROR");
   }
@@ -99,14 +99,16 @@ Statement* Parser::parseLet(TokenStream& tokens,
   }
 
   auto expr = parseExpression(tokens);
-
+  Statement* LetStmt = new LETStatement(originLine,varName,expr);
+  return LetStmt;
   // TODO: create a corresponding stmt and return it.
 }
 
 Statement* Parser::parsePrint(TokenStream& tokens,
                               const std::string& originLine) const {
   auto expr = parseExpression(tokens);
-  // TODO: create a corresponding stmt and return it.
+  Statement* PrintStmt = new PRINTStatement(originLine,expr);
+  return PrintStmt;// TODO: create a corresponding stmt and return it.
 }
 
 Statement* Parser::parseInput(TokenStream& tokens,
@@ -121,7 +123,8 @@ Statement* Parser::parseInput(TokenStream& tokens,
   }
 
   std::string varName = varToken->text;
-  // TODO: create a corresponding stmt and return it.
+  Statement* InputStmt = new INPUTStatement(originLine,varName);
+  return InputStmt;// TODO: create a corresponding stmt and return it.
 }
 
 Statement* Parser::parseGoto(TokenStream& tokens,
@@ -136,7 +139,8 @@ Statement* Parser::parseGoto(TokenStream& tokens,
   }
 
   int targetLine = parseLiteral(lineToken);
-  // TODO: create a corresponding stmt and return it.
+  Statement* GotoStmt = new GOTOStatement(originLine,targetLine);
+  return GotoStmt;// TODO: create a corresponding stmt and return it.
 }
 
 Statement* Parser::parseIf(TokenStream& tokens,
@@ -184,7 +188,8 @@ Statement* Parser::parseIf(TokenStream& tokens,
   }
 
   int targetLine = parseLiteral(lineToken);
-
+  Statement* IfStmt = new IFStatement(originLine,leftExpr,op,rightExpr,targetLine);
+  return IfStmt;
   // TODO: create a corresponding stmt and return it.
 }
 
@@ -194,12 +199,14 @@ Statement* Parser::parseRem(TokenStream& tokens,
   if (!remInfo || remInfo->type != TokenType::REMINFO) {
     throw BasicError("SYNTAX ERROR");
   }
-  // TODO: create a corresponding stmt and return it.
+  Statement* RemStmt = new REMStatement(originLine);
+  return RemStmt;// TODO: create a corresponding stmt and return it.
 }
 
 Statement* Parser::parseEnd(TokenStream& tokens,
                             const std::string& originLine) const {
-  // TODO: create a corresponding stmt and return it.
+  Statement* EndStmt = new ENDStatement(originLine);
+  return EndStmt;// TODO: create a corresponding stmt and return it.
 }
 
 Expression* Parser::parseExpression(TokenStream& tokens) const {
