@@ -19,26 +19,42 @@ int main() {
       continue;
     }
     try {
-      // TokenStream tokens = lexer.tokenize(line);
-      // auto parsedLine = parser.parseLine(tokens, line);
-      //
-      // auto lineNumber = parsedLine.getLine();
-      // Statement* stmt = parsedLine.fetchStatement();
-      //
-      // if (lineNumber.has_value()) {
-      //   // 有行号的情况 - 添加到程序或删除行
-      //   if (stmt) {
-      //     program.addStmt(lineNumber.value(), stmt);
-      //   } else {
-      //     program.removeStmt(lineNumber.value());
-      //   }
-      // } else {
-      //   // 立即执行指令
-      //   if (stmt) {
-      //     program.execute(stmt);
-      //     delete stmt;  // 立即执行的语句需要手动删除
-      //   }
-      // }
+      TokenStream tokens = lexer.tokenize(line);
+      const Token* firstToken = tokens.peek();
+      if (firstToken && tokens.size() == 1) {
+        switch (firstToken->type) {
+          case TokenType::RUN:
+            program.run();
+            continue;
+          case TokenType::LIST:
+            program.list();
+            continue;
+          case TokenType::CLEAR:
+            program.clear();
+            continue;
+          case TokenType::QUIT:
+            return 0;
+          case TokenType::HELP:
+            std::cout << "help" << std::endl;
+          default:break;
+        }
+      }
+      ParsedLine parsedLine = parser.parseLine(tokens, line);
+      std::optional<int> lineNumber = parsedLine.getLine();
+      Statement* stmt = parsedLine.fetchStatement();
+
+      if (lineNumber.has_value()) {
+        if (stmt != nullptr) {
+          program.addStmt(lineNumber.value(), stmt);
+        } else {
+          program.removeStmt(lineNumber.value());
+        }
+      } else {
+        if (stmt != nullptr) {
+          program.execute(stmt);
+          delete stmt;
+        }
+      }
       // TODO: The main function.
     } catch (const BasicError& e) {
       std::cout << e.message() << "\n";
