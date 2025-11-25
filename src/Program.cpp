@@ -38,6 +38,9 @@ int Program::getPC() const noexcept {
 }
 
 void Program::changePC(int line) {
+  if (!recorder_.hasLine(line)) {
+    throw("Invalid line number");
+  }
   programCounter_ = line;
 }
 

@@ -51,8 +51,13 @@ int main() {
         }
       } else {
         if (stmt != nullptr) {
-          program.execute(stmt);
-          delete stmt;
+          try {
+            program.execute(stmt);
+            delete stmt;
+          } catch (const BasicError& e) {
+            delete stmt;
+            throw;
+          }
         }
       }
       // TODO: The main function.

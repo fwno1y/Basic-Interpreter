@@ -38,7 +38,7 @@ void PRINTStatement::execute(VarState& state, Program& program) const {
 INPUTStatement::INPUTStatement(std::string source, std::string var) : Statement(std::move(source)),var(std::move(var)) {}
 
 void INPUTStatement::execute(VarState& state, Program& program) const {
-  std::cout << '?';
+  std::cout << '?' << ' ';
   int value;
   std::cin >> value;
   state.setValue(var,value);
