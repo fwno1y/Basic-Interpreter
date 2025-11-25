@@ -16,8 +16,11 @@ void Program::run() {
   programCounter_ = recorder_.nextLine(0);
   while (!programEnd_ && programCounter_ != -1) {
     const Statement* stmt = recorder_.get(programCounter_);
-    stmt->execute(vars_,*this);
-    programCounter_ = recorder_.nextLine(programCounter_);
+    int oldpC = programCounter_;
+    stmt->execute(vars_, *this);
+    if (programCounter_ == oldpC) {
+      programCounter_ = recorder_.nextLine(programCounter_);
+    }
   }
 }
 
