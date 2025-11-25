@@ -1,0 +1,5 @@
+/mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/build/CMakeFiles/code.dir
+/mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/build/CMakeFiles/attached_test.dir
+/mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/build/CMakeFiles/scope_test.dir
+/mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/build/CMakeFiles/rebuild_cache.dir
