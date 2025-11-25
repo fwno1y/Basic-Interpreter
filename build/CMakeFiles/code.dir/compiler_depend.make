@@ -826,6 +826,7 @@ CMakeFiles/code.dir/src/Program.cpp.o: /mnt/c/Users/36433/Desktop/课程作业/�
   /mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/include/Recorder.hpp \
   /mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/include/Statement.hpp \
   /mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/include/VarState.hpp \
+  /mnt/c/Users/36433/Desktop/课程作业/程序设计/BasicInterpreter-2025-main/include/utils/Error.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
