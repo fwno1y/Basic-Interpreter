@@ -1,6 +1,9 @@
 #include "Program.hpp"
+
 #include <iostream>
 #include <map>
+
+#include "utils/Error.hpp"
 
 Program::Program() : programCounter_(-1), programEnd_(false) {}
 
@@ -45,7 +48,7 @@ int Program::getPC() const noexcept {
 
 void Program::changePC(int line) {
   if (!recorder_.hasLine(line)) {
-    throw("LINE NUMBER ERROR");
+    throw BasicError("LINE NUMBER ERROR");
   }
   programCounter_ = line;
 }
