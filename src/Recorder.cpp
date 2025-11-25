@@ -49,7 +49,7 @@ void Recorder::clear() noexcept {
 
 void Recorder::printLines() const {
   for (auto line : lines) {
-    std::cout << line.first << " " << line.second << std::endl;
+    std::cout << line.second->text() << std::endl;
   }
 }
 
