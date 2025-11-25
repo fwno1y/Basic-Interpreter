@@ -16,6 +16,9 @@ void Program::run() {
   programCounter_ = recorder_.nextLine(0);
   while (!programEnd_ && programCounter_ != -1) {
     const Statement* stmt = recorder_.get(programCounter_);
+    if (stmt == nullptr) {
+      throw("LINE NUMBER ERROR");
+    }
     int oldpC = programCounter_;
     stmt->execute(vars_, *this);
     if (programCounter_ == oldpC) {
@@ -42,7 +45,7 @@ int Program::getPC() const noexcept {
 
 void Program::changePC(int line) {
   if (!recorder_.hasLine(line)) {
-    throw("Invalid line number");
+    throw("LINE NUMBER ERROR");
   }
   programCounter_ = line;
 }

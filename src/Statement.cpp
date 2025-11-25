@@ -38,10 +38,28 @@ void PRINTStatement::execute(VarState& state, Program& program) const {
 INPUTStatement::INPUTStatement(std::string source, std::string var) : Statement(std::move(source)),var(std::move(var)) {}
 
 void INPUTStatement::execute(VarState& state, Program& program) const {
-  std::cout << ' ' << '?' << ' ';
   int value;
-  std::cin >> value;
-  state.setValue(var,value);
+  bool validinput = false;
+  while (!validinput) {
+    std::cout << ' ' << '?' << ' ';
+    std::string input;
+    std::getline(std::cin,input);
+    bool isNumber = true;
+    for (int i = 0; i < input.length(); ++i) {
+      if (!isdigit(input[i])) {
+        isNumber = false;
+        break;
+      }
+    }
+    if (!isNumber) {
+      std::cout << "INVALID NUMBER" << std::endl;
+    }
+    else {
+      value = std::stoi(input);
+      validinput = true;
+      state.setValue(var,value);
+    }
+  }
 }
 
 GOTOStatement::GOTOStatement(std::string source, int line) : Statement(std::move(source)),line(line) {}
