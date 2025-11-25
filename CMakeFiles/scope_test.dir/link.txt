@@ -1,1 +1,0 @@
-/usr/bin/c++  -g CMakeFiles/scope_test.dir/ScopeTest.cpp.o -o scope_test 
