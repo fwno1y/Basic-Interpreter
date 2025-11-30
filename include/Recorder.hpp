@@ -19,5 +19,6 @@ class Recorder {
   int nextLine(int line) const noexcept;
 
  private:
-  std::map<int,Statement*> lines;// TODO.
+  std::map<int,Statement*> lines;//储存行号索引的语句
+  // TODO.
 };

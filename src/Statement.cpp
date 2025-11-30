@@ -39,13 +39,13 @@ INPUTStatement::INPUTStatement(std::string source, std::string var) : Statement(
 
 void INPUTStatement::execute(VarState& state, Program& program) const {
   while (true) {
-    std::cout << " ? ";
-    std::cin >> std::ws;
+    std::cout << " ? ";//问号两边都有空格注意
+    std::cin >> std::ws;//忽略空白字符
     std::string input;
     std::getline(std::cin,input);
     try {
       size_t p;
-      state.setValue(var, std::stoi(input, &p));
+      state.setValue(var, std::stoi(input, &p));//stoi读入的长度少于input长度则报错
       if (p < input.length()) throw std::exception();
       break;
     } catch (const std::exception& e) {
@@ -101,3 +101,20 @@ void ENDStatement::execute(VarState& state, Program& program) const {
   program.programEnd();
 }
 // TODO: Imply interfaces declared in the Statement.hpp.
+
+//Scope
+// 在文件末尾添加：
+
+// INDENTStatement
+INDENTStatement::INDENTStatement(std::string source) : Statement(std::move(source)) {}
+
+void INDENTStatement::execute(VarState& state, Program& program) const {
+  state.indent();
+}
+
+// DEDENTStatement
+DEDENTStatement::DEDENTStatement(std::string source) : Statement(std::move(source)) {}
+
+void DEDENTStatement::execute(VarState& state, Program& program) const {
+  state.dedent();
+}

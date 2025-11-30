@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-
+ 
 #include "Recorder.hpp"
 #include "VarState.hpp"
 

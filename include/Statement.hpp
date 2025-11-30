@@ -97,3 +97,17 @@ public:
 };
 // TODO: Other statement types derived from Statement, e.g., GOTOStatement,
 // LetStatement, etc.
+
+//Scope
+class INDENTStatement : public Statement {
+public:
+  explicit INDENTStatement(std::string source);
+
+  void execute(VarState& state, Program& program) const override;
+};
+class DEDENTStatement : public Statement {
+public:
+  explicit DEDENTStatement(std::string source);
+
+  void execute(VarState& state, Program& program) const override;
+};

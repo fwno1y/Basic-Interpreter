@@ -76,6 +76,11 @@ Statement* Parser::parseStatement(TokenStream& tokens,
       return parseRem(tokens, originLine);
     case TokenType::END:
       return parseEnd(tokens, originLine);
+    //Scope
+    case TokenType::INDENT:
+      return parseIndent(tokens,originLine);
+    case TokenType::DEDENT:
+      return parseDedent(tokens,originLine);
     default:
       throw BasicError("SYNTAX ERROR");
   }
@@ -208,6 +213,20 @@ Statement* Parser::parseEnd(TokenStream& tokens,
   Statement* EndStmt = new ENDStatement(originLine);
   return EndStmt;// TODO: create a corresponding stmt and return it.
 }
+//Scope
+Statement* Parser::parseIndent(TokenStream& tokens,
+                               const std::string& originLine) const {
+  Statement* IndentStmt = new INDENTStatement(originLine);
+  return IndentStmt;
+}
+
+Statement* Parser::parseDedent(TokenStream& tokens,
+                               const std::string& originLine) const {
+  Statement* DedentStmt = new DEDENTStatement(originLine);
+  return DedentStmt;
+}
+
+
 
 Expression* Parser::parseExpression(TokenStream& tokens) const {
   return parseExpression(tokens, 0);
@@ -292,7 +311,7 @@ Expression* Parser::parseExpression(TokenStream& tokens, int precedence) const {
   return left;
 }
 
-int Parser::getPrecedence(TokenType op) const {
+int Parser::getPrecedence(TokenType op) const {//维护运算符优先级
   switch (op) {
     case TokenType::PLUS:
     case TokenType::MINUS:
@@ -305,7 +324,7 @@ int Parser::getPrecedence(TokenType op) const {
   }
 }
 
-int Parser::parseLiteral(const Token* token) const {
+int Parser::parseLiteral(const Token* token) const {//返回数值（比如行号）
   if (!token || token->type != TokenType::NUMBER) {
     throw BasicError("SYNTAX ERROR");
   }
